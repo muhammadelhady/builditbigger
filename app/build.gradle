@@ -1,0 +1,106 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.cloud.tools.endpoints-framework-client'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.google.cloud.tools:endpoints-framework-gradle-plugin:1.0.2'
+    }
+}
+
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
+
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.udacity.gradle.builditbigger"
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    flavorDimensions "version"
+    productFlavors {
+        demo {
+            // Assigns this product flavor to the "version" flavor dimension.
+            // This property is optional if you are using only one dimension.
+            dimension "version"
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        full {
+            dimension "version"
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+
+    }
+    defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+        endpointsServer project(path: ':backend', configuration: 'endpoints')
+        implementation 'com.android.support:appcompat-v7:27.1.1'
+        implementation 'com.google.android.gms:play-services-ads:11.8.0'
+        implementation 'com.google.api-client:google-api-client:1.23.0'
+        implementation 'com.google.http-client:google-http-client-android:1.23.0'
+        implementation 'com.google.code.findbugs:jsr305:3.0.1'
+        // Required -- JUnit 4 framework
+        testImplementation 'junit:junit:4.12'
+        // Optional -- Mockito framework
+        testImplementation 'org.mockito:mockito-core:1.10.19'
+        implementation project(':avaJokes')
+        implementation project(':mylibrary')
+
+        androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+            exclude group: 'com.android.support', module: 'support-annotations'
+        })
+
+        testImplementation 'junit:junit:4.12'
+        implementation 'junit:junit:4.12'
+        implementation group: 'com.uphyca', name: 'android-junit4', version: '0.3'
+
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test:rules:1.0.2'
+
+    }
+}
