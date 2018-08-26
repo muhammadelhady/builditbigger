@@ -45,12 +45,14 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
 
         }
 
+       if (context!=null)
+       {  context = params[0].first;
 
-        context = params[0].first;
-        String name = params[0].second;
+       }
+
 
         try {
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.sayHi("g").execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -59,10 +61,13 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
     @Override
     protected void onPostExecute(String result) {
         testResult=result;
+        if (context!=null)
+        {
+            Intent   intent=new Intent(context, JokeActivity.class);
+            intent.putExtra("joke",result);
+            context.startActivity(intent);
+        }
 
-       Intent   intent=new Intent(context, JokeActivity.class);
-       intent.putExtra("joke",result);
-       context.startActivity(intent);
     }
 
     public String ReturnResult()

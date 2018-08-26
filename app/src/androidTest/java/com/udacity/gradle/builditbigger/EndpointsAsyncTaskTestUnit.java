@@ -17,15 +17,11 @@ public class EndpointsAsyncTaskTestUnit {
 
     @Test
         public void iTest() throws Exception {
-            EndpointsAsyncTaskTest aTest =  new EndpointsAsyncTaskTest();
-            aTest.execute(InstrumentationRegistry.getInstrumentation().getTargetContext());
+            EndpointsAsyncTask aTest =  new EndpointsAsyncTask();
+            aTest.execute();
             String joke = aTest.get(5, TimeUnit.SECONDS);
-            boolean actual=false;
-            if(joke.equals("Joke"))
-            {
-                actual=true;
-            }
-            Assert.assertEquals(true,actual);
+
+            Assert.assertEquals("Joke",joke);
         }
 }
 
