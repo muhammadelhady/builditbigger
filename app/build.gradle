@@ -22,15 +22,7 @@ android {
         }
     }
 
-    productFlavors {
-        free {
-            applicationId "com.udacity.gradle.builditbigger.free"
-        }
 
-        paid {
-            applicationId "com.udacity.gradle.builditbigger.paid"
-        }
-    }
 
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
@@ -53,17 +45,19 @@ android {
 
     flavorDimensions "version"
     productFlavors {
-        demo {
+        free {
             // Assigns this product flavor to the "version" flavor dimension.
             // This property is optional if you are using only one dimension.
             dimension "version"
             applicationIdSuffix ".free"
             versionNameSuffix "-free"
+            applicationId "com.udacity.gradle.builditbigger.free"
         }
-        full {
+        paid {
             dimension "version"
             applicationIdSuffix ".paid"
             versionNameSuffix "-paid"
+            applicationId "com.udacity.gradle.builditbigger.paid"
 
         }
     }
@@ -80,7 +74,7 @@ android {
         implementation fileTree(dir: 'libs', include: ['*.jar'])
         endpointsServer project(path: ':backend', configuration: 'endpoints')
         implementation 'com.android.support:appcompat-v7:27.1.1'
-        implementation 'com.google.android.gms:play-services-ads:11.8.0'
+        freeImplementation 'com.google.android.gms:play-services-ads:11.8.0'
         implementation 'com.google.api-client:google-api-client:1.23.0'
         implementation 'com.google.http-client:google-http-client-android:1.23.0'
         implementation 'com.google.code.findbugs:jsr305:3.0.1'

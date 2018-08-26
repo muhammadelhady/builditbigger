@@ -38,7 +38,7 @@ class EndpointsAsyncTaskTest extends AsyncTask<Context, Void, String> {
 
 
         try {
-            return myApiService.sayHi("").execute().getData();
+            return myApiService.sayHi("g").execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }

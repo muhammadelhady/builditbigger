@@ -4,7 +4,6 @@ package com.udacity.gradle.builditbigger;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +20,10 @@ public class EndpointsAsyncTaskTestUnit {
             EndpointsAsyncTaskTest aTest =  new EndpointsAsyncTaskTest();
             aTest.execute(InstrumentationRegistry.getInstrumentation().getTargetContext());
             String joke = aTest.get(5, TimeUnit.SECONDS);
-            boolean actual=true;
-            if(joke.isEmpty())
+            boolean actual=false;
+            if(joke.equals("Joke"))
             {
-                actual=false;
+                actual=true;
             }
             Assert.assertEquals(true,actual);
         }
